@@ -1,568 +1,213 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Antecedentes - Proyecto Minero Rico Mora</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Antecedentes – Proyecto Minero Rico Mora</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-  :root{
-    --bg:#0f1724;
-    --card:#0b1220;
-    --accent:#2563eb;
-    --accent-2:#06b6d4;
-    --muted:#94a3b8;
-    --glass: rgba(255,255,255,0.03);
-    --card-2: #071028;
-    --line: #1e293b;
-    --panel-bg: #f8fafc;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family: "Inter", Arial, sans-serif;
-    background: linear-gradient(180deg,#071026 0%, #071a2a 60%);
-    color: #e6eef8;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    padding:24px;
-  }
-  header{
-    max-width:1200px;
-    margin:0 auto 18px;
-    display:flex;
-    gap:16px;
-    align-items:center;
-    justify-content:space-between;
-  }
-  .title{
-    display:flex;
-    gap:12px;
-    align-items:center;
-  }
-  .title h1{
-    margin:0;
-    font-size:20px;
-    letter-spacing:0.2px;
-    font-weight:700;
-    color:#f8fafc;
-  }
-  .subtitle{
-    color:var(--muted);
-    font-size:13px;
-    margin-top:4px;
-  }
-  .controls{
-    display:flex;
-    gap:8px;
-  }
-  button.btn{
-    background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-    border:1px solid rgba(255,255,255,0.06);
-    color: #e6eef8;
-    padding:10px 14px;
-    border-radius:12px;
-    cursor:pointer;
-    font-weight:600;
-    font-size:14px;
-    display:inline-flex;
-    gap:8px;
-    align-items:center;
-  }
-  button.btn.ghost{
-    background:transparent;
-    border:1px solid rgba(255,255,255,0.04);
-    color:var(--muted);
-  }
-  main{
-    max-width:1200px;
-    margin:0 auto;
-    display:grid;
-    grid-template-columns: 1fr 420px;
-    gap:18px;
-    align-items:start;
-  }
-
-  /* Left column - timeline / graph */
-  .canvas-card{
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border-radius:14px;
-    padding:18px;
-    border:1px solid rgba(255,255,255,0.04);
-    box-shadow: 0 6px 18px rgba(2,6,23,0.5);
-  }
-  .view-toggle{
-    display:flex;
-    gap:8px;
-    margin-bottom:12px;
-  }
-  .timeline{
-    position:relative;
-    padding:18px 26px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-    border-radius:10px;
-    overflow:hidden;
-  }
-  /* central vertical line */
-  .timeline::after{
-    content:"";
-    position:absolute;
-    left:50%;
-    top:0;
-    bottom:0;
-    width:6px;
-    margin-left:-3px;
-    background: linear-gradient(180deg,var(--accent),var(--accent-2));
-    opacity:0.9;
-    border-radius:6px;
-    box-shadow:0 0 20px rgba(37,99,235,0.15), inset 0 0 10px rgba(6,182,212,0.05);
-  }
-
-  .entry{
-    position:relative;
-    width:44%;
-    padding:14px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border-radius:10px;
-    border:1px solid rgba(255,255,255,0.03);
-    box-shadow: 0 6px 18px rgba(2,6,23,0.45);
-    margin:18px 0;
-    font-size:14px;
-    color:#e6eef8;
-  }
-  .entry .date{ font-weight:700; color: #cfe8ff; font-size:13px; margin-bottom:6px;}
-  .entry .actor{ font-weight:700; color: #e1f0ff; font-size:13px;}
-  .entry .info{ margin-top:6px; color: var(--muted); font-size:13px; line-height:1.3;}
-
-  .entry.left{ left:0; margin-right:56%; }
-  .entry.right{ margin-left:56%; left:0; }
-
-  /* markers pointing to line */
-  .entry::after{
-    content:"";
-    position:absolute;
-    top:20px;
-    width:14px;
-    height:14px;
-    border-radius:50%;
-    background: #fff;
-    border:4px solid var(--accent);
-    box-shadow: 0 6px 14px rgba(6,182,212,0.09);
-  }
-  .entry.left::after{ right:-38px; }
-  .entry.right::after{ left:-38px; }
-
-  /* Right column - panel with image / full text */
-  aside.panel{
-    background:var(--panel-bg);
-    color:#082034;
-    border-radius:12px;
-    padding:14px;
-    border:1px solid rgba(2,6,23,0.06);
-    max-height: calc(100vh - 120px);
-    overflow:auto;
-  }
-  aside.panel h2{
-    margin:0 0 8px 0;
-    font-size:16px;
-    color:#042a3b;
-  }
-  .panel .note{ font-size:13px; color:#1f3a45; margin-bottom:12px;}
-  .image-preview{
-    width:100%;
-    border-radius:8px;
-    overflow:hidden;
-    border:1px solid rgba(2,6,23,0.05);
-    background:white;
-    margin-bottom:12px;
-  }
-  .image-preview img{ display:block; width:100%; height:auto; }
-
-  .fulltext{
-    background:#fff;
-    color:#042a3b;
-    padding:12px;
-    border-radius:8px;
-    border:1px solid rgba(2,6,23,0.04);
-    font-size:13px;
-    line-height:1.3;
-    max-height:380px;
-    overflow:auto;
-    white-space:pre-wrap;
-  }
-  .actions{
-    display:flex;
-    gap:8px;
-    margin-top:12px;
-  }
-
-  footer{
-    max-width:1200px;
-    margin:18px auto 0;
-    color:var(--muted);
-    font-size:13px;
-    text-align:center;
-  }
-
-  /* responsive */
-  @media (max-width:980px){
-    main{ grid-template-columns: 1fr; }
-    .entry.left, .entry.right{ width:86%; margin-left:0; margin-right:0; }
-    .entry.right{ margin-left:0; }
-    .timeline::after{ left:10px; margin-left:0; width:4px; }
-    .entry::after{ left:-30px; right:auto; }
-  }
-
-  /* small helpers */
-  .muted{ color:var(--muted) }
-  .kbd{ display:inline-block; background:#e6eef8; color:#03203a; padding:3px 8px; border-radius:6px; font-weight:700; font-size:12px;}
+:root{
+  --fondo:#0b1626;
+  --panel:#121f36;
+  --azul:#3b82f6;
+  --texto:#e5e7eb;
+  --gris:#9ca3af;
+}
+body{
+  margin:0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background:linear-gradient(180deg,#0b1626,#020617);
+  color:var(--texto);
+}
+header{
+  padding:30px;
+  text-align:center;
+}
+header h1{
+  margin:0;
+}
+main{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:20px;
+  padding:20px;
+}
+.timeline{
+  position:relative;
+  padding-left:40px;
+}
+.timeline::before{
+  content:"";
+  position:absolute;
+  left:15px;
+  top:0;
+  bottom:0;
+  width:4px;
+  background:var(--azul);
+}
+.event{
+  position:relative;
+  margin-bottom:25px;
+  cursor:pointer;
+}
+.dot{
+  position:absolute;
+  left:7px;
+  top:6px;
+  width:18px;
+  height:18px;
+  background:var(--azul);
+  border-radius:50%;
+}
+.card{
+  background:var(--panel);
+  padding:15px;
+  border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+.date{
+  font-weight:bold;
+  margin-bottom:5px;
+}
+.actor{
+  color:#93c5fd;
+  font-weight:bold;
+}
+.details{
+  display:none;
+  grid-column:2;
+  background:#0f172a;
+  padding:20px;
+  border-radius:10px;
+  max-height:75vh;
+  overflow:auto;
+}
+.details.active{
+  display:block;
+}
+.search{
+  margin-bottom:15px;
+}
+.search input{
+  width:100%;
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  font-size:16px;
+}
+section{
+  margin-bottom:25px;
+}
+section h3{
+  border-bottom:1px solid #334155;
+  padding-bottom:5px;
+}
 </style>
 </head>
+
 <body>
+
 <header>
-  <div class="title">
-    <div>
-      <h1>Antecedentes – Proyecto Minero Rico Mora</h1>
-      <div class="subtitle">Línea de tiempo documental · Entradas oficiales y antecedentes (resoluciones, radicados y actas)</div>
-    </div>
-  </div>
-  <div class="controls">
-    <button class="btn" id="toggleView">Ver: Línea de Tiempo</button>
-    <button class="btn ghost" id="showAllText">Mostrar Antecedentes Completos</button>
-  </div>
+  <h1>Antecedentes del Proyecto Minero Rico Mora</h1>
+  <p>Repositorio cronológico y documental</p>
 </header>
 
 <main>
-  <section class="canvas-card">
-    <div class="view-toggle">
-      <button class="btn" id="viewTimeline">Línea</button>
-      <button class="btn ghost" id="viewGraph">Gráfica</button>
+  <!-- LÍNEA DE TIEMPO -->
+  <div class="timeline">
+
+    <div class="event" onclick="show('a1')">
+      <div class="dot"></div>
+      <div class="card">
+        <div class="date">12/08/2009</div>
+        <div class="actor">Título Minero</div>
+        Contrato de Concesión Minero No. IH8-10541
+      </div>
     </div>
 
-    <!-- timeline container -->
-    <div id="timelineArea" class="timeline" aria-live="polite">
-
-      <!-- Entries: (usé las entradas que me diste en tu HTML original) -->
-      <div class="entry left"><div class="date">28/07/2015</div><div class="actor">Compañía</div><div class="info">Suscripción del contrato IH8-10541 para explotación de minerales en Yalí.</div></div>
-
-      <div class="entry right"><div class="date">14/08/2016</div><div class="actor">Título minero</div><div class="info">Período de suspensión de obligaciones inscrito en Registro Minero.</div></div>
-
-      <div class="entry left"><div class="date">27/02/2020</div><div class="actor">Compañía Rico Mora</div><div class="info">Solicitud de licencia ambiental (160ZF-COE2002-6660).</div></div>
-
-      <div class="entry right"><div class="date">14/04/2020</div><div class="actor">Autoridad Ambiental</div><div class="info">Requerimiento para complementar FUR y ampliación de plazo.</div></div>
-
-      <div class="entry left"><div class="date">08/07/2020</div><div class="actor">Compañía Rico Mora</div><div class="info">Entrega de complemento al Estudio de Impacto Ambiental – EIA.</div></div>
-
-      <div class="entry right"><div class="date">03/09/2020</div><div class="actor">Autoridad Ambiental</div><div class="info">Informe técnico del EIA (sin visita por emergencia).</div></div>
-
-      <div class="entry left"><div class="date">09/09/2020</div><div class="actor">Autoridad Ambiental</div><div class="info">Negación de la licencia ambiental.</div></div>
-
-      <div class="entry right"><div class="date">01/10/2020</div><div class="actor">Autoridad Ambiental</div><div class="info">Recurso de reposición y entrega de información adicional.</div></div>
-
-      <div class="entry left"><div class="date">15/10/2020</div><div class="actor">Autoridad Ambiental</div><div class="info">Se ordena continuar trámite con nuevos requerimientos.</div></div>
-
-      <div class="entry right"><div class="date">10/05/2021</div><div class="actor">Autoridad Ambiental</div><div class="info">Memorando solicitando información sobre inversión del 1%.</div></div>
-
-      <div class="entry left"><div class="date">26/05/2021</div><div class="actor">Autoridad Ambiental</div><div class="info">Revocación de negación; trámite vuelve a etapa de información adicional.</div></div>
-
-      <div class="entry right"><div class="date">04/06/2021</div><div class="actor">Autoridad Ambiental</div><div class="info">Solicitud de información complementaria.</div></div>
-
-      <div class="entry left"><div class="date">12/08/2021</div><div class="actor">Autoridad Ambiental</div><div class="info">Respuesta a requerimientos complementarios.</div></div>
-
-      <div class="entry right"><div class="date">13/10/2021</div><div class="actor">Título minero</div><div class="info">Adición de materiales de construcción al contrato IH8-10541.</div></div>
-
-      <div class="entry left"><div class="date">28/10/2021</div><div class="actor">Autoridad Ambiental</div><div class="info">Información completa para decidir licencia ambiental.</div></div>
-
-      <div class="entry right"><div class="date">29/10/2021</div><div class="actor">Autoridad Ambiental</div><div class="info">Se otorga la Licencia Ambiental Mina Malabrigo.</div></div>
-
-      <div class="entry left"><div class="date">22/11/2021</div><div class="actor">Autoridad Ambiental</div><div class="info">Respuesta sobre inversión forzosa del 1%.</div></div>
-
-      <div class="entry right"><div class="date">26/08/2022</div><div class="actor">Autoridad Ambiental</div><div class="info">Solicitud de inscripción en RUA.</div></div>
-
-      <div class="entry left"><div class="date">26/10/2022</div><div class="actor">Compañía Rico Mora</div><div class="info">Radicación ICA No. 1.</div></div>
-
-      <div class="entry right"><div class="date">15/11/2022</div><div class="actor">Compañía Rico Mora</div><div class="info">Respuesta a requerimientos.</div></div>
-
-      <div class="entry left"><div class="date">07/12/2022</div><div class="actor">Autoridad Ambiental</div><div class="info">Informe Técnico con oportunidades de mejora.</div></div>
-
-      <div class="entry right"><div class="date">27/12/2022</div><div class="actor">Autoridad Ambiental</div><div class="info">Acto Administrativo que requiere cumplimiento.</div></div>
-
-      <div class="entry left"><div class="date">31/01/2023</div><div class="actor">Compañía Rico Mora</div><div class="info">Autodeclaración TUA 2022.</div></div>
-
-      <div class="entry right"><div class="date">08/02/2023</div><div class="actor">Autoridad Ambiental</div><div class="info">Objeción a volúmenes reportados en TUA.</div></div>
-
-      <div class="entry left"><div class="date">10/04/2023</div><div class="actor">Compañía Rico Mora</div><div class="info">Respuesta parcial a requerimientos.</div></div>
-
-      <div class="entry right"><div class="date">01/06/2023</div><div class="actor">Compañía Rico Mora</div><div class="info">Informe de seguimiento (jul–dic 2022).</div></div>
-
-      <div class="entry left"><div class="date">09/06/2023</div><div class="actor">Compañía Rico Mora</div><div class="info">PMIRS presentado.</div></div>
-
-      <div class="entry right"><div class="date">24/08/2023</div><div class="actor">Compañía Rico Mora</div><div class="info">Informe de Seguimiento Ambiental ene–jun 2023.</div></div>
-
-      <div class="entry left"><div class="date">25/10/2023</div><div class="actor">Autoridad Ambiental</div><div class="info">Informe Técnico tras visita del 12 jul 2023.</div></div>
-
-      <div class="entry right"><div class="date">17/11/2023</div><div class="actor">Autoridad Ambiental</div><div class="info">Acto Administrativo solicitando subsanar obligaciones.</div></div>
-
-      <div class="entry left"><div class="date">20/03/2024</div><div class="actor">Compañía Rico Mora</div><div class="info">Respuesta parcial al Acto 040-ADM2311-10806.</div></div>
-
+    <div class="event" onclick="show('a2')">
+      <div class="dot"></div>
+      <div class="card">
+        <div class="date">28/07/2015</div>
+        <div class="actor">Autoridad Minera</div>
+        Resolución S201500290273
+      </div>
     </div>
 
-    <!-- Graphical timeline (SVG) -->
-    <div id="graphArea" style="display:none; padding:12px;">
-      <svg id="timelineSVG" width="100%" height="260" viewBox="0 0 1000 260" preserveAspectRatio="xMidYMid meet" style="background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); border-radius:8px;"></svg>
-      <div style="margin-top:10px; color:var(--muted); font-size:13px;">Vista gráfica: cada punto representa un hito. Haz clic en un punto para ver la fecha y la descripción.</div>
+    <div class="event" onclick="show('a3')">
+      <div class="dot"></div>
+      <div class="card">
+        <div class="date">28/06/2019</div>
+        <div class="actor">Autoridad Minera</div>
+        Resolución 2019060140010
+      </div>
     </div>
 
-  </section>
+  </div>
 
-  <aside class="panel" id="panelRight">
-    <h2>Antecedentes completos</h2>
-    <div class="note">Aquí puedes pegar el texto completo (radicados, resoluciones y demás) tal como aparece en tu documento o mostrar la imagen original. Si quieres que yo transcriba exactamente todo el texto desde la imagen, pégalo aquí o sube el archivo al repo y actualizo la página.</div>
+  <!-- ANTECEDENTES -->
+  <div>
 
-    <!-- Image preview (user can add the image to repo and cambiar src a ./assets/imagen.png) -->
-    <div class="image-preview" id="imgPreview">
-      <!-- Si subes la imagen al repo, actualiza el src a la ruta del repo -->
-      <img id="docImage" src="8938df1a-f823-497a-867e-5fa6d187066d.png" alt="Documento completo (subir imagen al repo si quieres que se muestre)" onerror="this.style.display='none'">
+    <div class="search">
+      <input type="text" placeholder="Buscar por resolución, radicado o palabra clave…" onkeyup="filter(this.value)">
     </div>
 
-    <!-- Full text area: pega aquí todo el texto largo. Ya viene con un ejemplo de plantilla. -->
-    <div id="fullText" class="fulltext" contenteditable="true" spellcheck="false">
-<!--
-PEGA AQUÍ EL TEXTO COMPLETO (radicados, resoluciones y demás).
-Puedes reemplazar este texto copiando el contenido de tu documento (la tabla grande),
-o dejar la imagen en el repo y eliminar este texto.
-
-Ejemplo: (reemplaza con todo el contenido que tienes en la imagen)
--->
-El 12 de agosto de 2009 se suscribió Contrato de Concesión Minero No. IH8-10541 para la exploración técnica y explotación económica de una mina de ORO, PLATA Y SUS CONCENTRADOS celebrado entre la GOBERNACIÓN DEL DEPARTAMENTO ANTIOQUIA y la sociedad COMPAÑÍA RICO MORA S.C.S., con un área ubicada en jurisdicción del municipio de YALÍ, departamento de ANTIOQUIA, con una duración de treinta (30) años, contados a partir del 27 de octubre de 2009, fecha de su inscripción en el Registro Minero Nacional.
-
-Mediante Resolución No. S201500290273 del 28 de Julio de 2015, notificada personalmente el 14 de agosto de 2015 y ejecutoriada el 01 de septiembre de 2015, la autoridad minera declaró suspensión de obligaciones dentro del contrato de concesión No. IH8-10541 a partir del 11 de septiembre de 2012 hasta el 22 de enero de 2016. Acto inscrito en el Registro Minero Nacional el 30 de noviembre de 2015.
-
-(Continúa: pega aquí todo el resto del documento, cada radicado y resolución completa.)
+    <div id="a1" class="details active">
+      <section>
+        <h3>1. Contrato de Concesión – IH8-10541</h3>
+        <p>
+        El 12 de agosto de 2009 se suscribió Contrato de Concesión Minero No. IH8-10541
+        para la exploración técnica y explotación económica de una mina de oro, plata
+        y sus concentrados, celebrado entre la Gobernación del Departamento de Antioquia
+        y la sociedad Compañía Rico Mora S.C.S., ubicado en jurisdicción del municipio de Yalí,
+        departamento de Antioquia, con una duración de treinta (30) años, contados a partir
+        del 27 de octubre de 2009, fecha de su inscripción en el Registro Minero Nacional.
+        </p>
+      </section>
     </div>
 
-    <div class="actions">
-      <button class="btn" id="copyText">Copiar texto</button>
-      <button class="btn ghost" id="downloadTxt">Descargar .txt</button>
-      <button class="btn" id="toggleImage">Mostrar / Ocultar imagen</button>
+    <div id="a2" class="details">
+      <section>
+        <h3>1.2 Resolución S201500290273 – 28/07/2015</h3>
+        <p>
+        Mediante Resolución No. S201500290273 del 28 de julio de 2015, notificada
+        personalmente el 14 de agosto de 2015 y ejecutoriada el 01 de septiembre de 2015,
+        la autoridad minera declaró suspensión de obligaciones dentro del contrato
+        de concesión No. IH8-10541 a partir del 11 de septiembre de 2012 hasta el 22 de
+        enero de 2016. Acto inscrito en el Registro Minero Nacional el 30 de noviembre de 2015.
+        </p>
+      </section>
     </div>
 
-    <div style="margin-top:10px; color:#083046; font-size:13px;">
-      Consejo: si quieres que yo transcriba todo exactamente desde la imagen colócala en la carpeta del repo y deja el nombre del archivo; yo la puedo referenciar para que quede embebida.
+    <div id="a3" class="details">
+      <section>
+        <h3>1.3 Resolución 2019060140010 – 28/06/2019</h3>
+        <p>
+        Mediante Resolución No. 2019060140010 del 28 de junio de 2019, notificada
+        personalmente el 14 de agosto de 2019 y ejecutoriada el 15 de agosto de 2019,
+        la autoridad minera declaró suspensión de obligaciones dentro del contrato
+        de concesión No. IH8-10541 a partir del 04 de febrero de 2016 hasta el 03 de
+        agosto de 2016. Acto inscrito en el Registro Minero Nacional el 08 de octubre de 2019.
+        </p>
+      </section>
     </div>
 
-  </aside>
+  </div>
 </main>
 
-<footer>
-  Página generada automáticamente · Sube este archivo `index.html` a tu repositorio en GitHub y activa GitHub Pages.
-</footer>
-
 <script>
-  // --- UI toggles ---
-  const timelineArea = document.getElementById('timelineArea');
-  const graphArea = document.getElementById('graphArea');
-  const viewTimelineBtn = document.getElementById('viewTimeline');
-  const viewGraphBtn = document.getElementById('viewGraph');
-  const toggleView = document.getElementById('toggleView');
-  const showAllText = document.getElementById('showAllText');
-  const panelRight = document.getElementById('panelRight');
-  const imgPreview = document.getElementById('imgPreview');
-  const docImage = document.getElementById('docImage');
+function show(id){
+  document.querySelectorAll('.details').forEach(d=>d.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 
-  function showTimeline(){
-    timelineArea.style.display = '';
-    graphArea.style.display = 'none';
-    viewTimelineBtn.classList.remove('ghost');
-    viewGraphBtn.classList.add('ghost');
-    toggleView.textContent = 'Ver: Línea de Tiempo';
-  }
-  function showGraph(){
-    timelineArea.style.display = 'none';
-    graphArea.style.display = '';
-    viewTimelineBtn.classList.add('ghost');
-    viewGraphBtn.classList.remove('ghost');
-    toggleView.textContent = 'Ver: Gráfica';
-    drawSVG();
-  }
-
-  viewTimelineBtn.addEventListener('click', showTimeline);
-  viewGraphBtn.addEventListener('click', showGraph);
-  toggleView.addEventListener('click', () => {
-    if (graphArea.style.display === 'none' || graphArea.style.display === '') {
-      // toggle
-      if (timelineArea.style.display === 'none') showTimeline();
-      else showGraph();
-    }
+function filter(txt){
+  txt = txt.toLowerCase();
+  document.querySelectorAll('.details').forEach(d=>{
+    d.style.display = d.innerText.toLowerCase().includes(txt) ? 'block' : 'none';
   });
-
-  showAllText.addEventListener('click', () => {
-    panelRight.scrollIntoView({behavior:'smooth'});
-  });
-
-  document.getElementById('toggleImage').addEventListener('click', () => {
-    if (docImage.style.display === 'none') docImage.style.display = '';
-    else docImage.style.display = 'none';
-  });
-
-  // Copy / download text
-  document.getElementById('copyText').addEventListener('click', () => {
-    const txt = document.getElementById('fullText').innerText;
-    navigator.clipboard.writeText(txt).then(()=> {
-      alert('Texto copiado al portapapeles.');
-    }, ()=> alert('No se pudo copiar. Selecciona y copia manualmente.'));
-  });
-  document.getElementById('downloadTxt').addEventListener('click', () => {
-    const txt = document.getElementById('fullText').innerText;
-    const blob = new Blob([txt], {type:'text/plain;charset=utf-8'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = 'antecedentes_completos.txt';
-    document.body.appendChild(a); a.click(); a.remove();
-    URL.revokeObjectURL(url);
-  });
-
-  // --- Simple SVG graph drawing from timeline entries ---
-  function drawSVG(){
-    const svg = document.getElementById('timelineSVG');
-    svg.innerHTML = ''; // clear
-    // gather entries
-    const entries = Array.from(document.querySelectorAll('.timeline .entry'));
-    // build array of {dateText, info}
-    const data = entries.map(e=>{
-      const date = e.querySelector('.date')?.innerText || '';
-      const actor = e.querySelector('.actor')?.innerText || '';
-      const info = e.querySelector('.info')?.innerText || '';
-      return {date, actor, info};
-    });
-
-    // map positions evenly across width
-    const w = 960, h = 220;
-    svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
-    // draw base line
-    const line = document.createElementNS('http://www.w3.org/2000/svg','rect');
-    line.setAttribute('x', 40);
-    line.setAttribute('y', h/2 - 3);
-    line.setAttribute('width', w - 80);
-    line.setAttribute('height', 6);
-    line.setAttribute('rx', 3);
-    line.setAttribute('fill', 'rgba(255,255,255,0.06)');
-    svg.appendChild(line);
-
-    const count = data.length;
-    data.forEach((d,i)=>{
-      const t = i / Math.max(1, count-1);
-      const x = 40 + t * (w-80);
-      const y = h/2;
-      // circle
-      const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
-      circle.setAttribute('cx', x);
-      circle.setAttribute('cy', y);
-      circle.setAttribute('r', 10);
-      circle.setAttribute('fill', '#fff');
-      circle.setAttribute('stroke', '#1e90ff');
-      circle.setAttribute('stroke-width', 4);
-      circle.style.cursor='pointer';
-      svg.appendChild(circle);
-
-      // label
-      const text = document.createElementNS('http://www.w3.org/2000/svg','text');
-      text.setAttribute('x', x);
-      text.setAttribute('y', y + 30);
-      text.setAttribute('text-anchor','middle');
-      text.setAttribute('font-size','11');
-      text.setAttribute('fill','#e6eef8');
-      text.textContent = d.date;
-      svg.appendChild(text);
-
-      // tooltip on click
-      circle.addEventListener('click', () => {
-        showTooltip(x, y - 40, d.date, d.actor, d.info);
-      });
-    });
-
-    // tooltip container
-    let existing = document.getElementById('svgTooltip');
-    if (!existing){
-      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
-      g.setAttribute('id','svgTooltip');
-      svg.appendChild(g);
-    }
-  }
-
-  function showTooltip(x,y,date,actor,info){
-    const svg = document.getElementById('timelineSVG');
-    const g = document.getElementById('svgTooltip');
-    g.innerHTML = '';
-    const width = 300;
-    const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
-    rect.setAttribute('x', Math.max(10, Math.min(980-width, x - width/2)));
-    rect.setAttribute('y', y - 80);
-    rect.setAttribute('width', width);
-    rect.setAttribute('height', 70);
-    rect.setAttribute('rx', 8);
-    rect.setAttribute('fill', 'white');
-    rect.setAttribute('opacity', '0.95');
-    rect.setAttribute('stroke', '#1e293b');
-    g.appendChild(rect);
-
-    const t1 = document.createElementNS('http://www.w3.org/2000/svg','text');
-    t1.setAttribute('x', parseFloat(rect.getAttribute('x')) + 10);
-    t1.setAttribute('y', parseFloat(rect.getAttribute('y')) + 18);
-    t1.setAttribute('fill','#042a3b');
-    t1.setAttribute('font-weight','700');
-    t1.setAttribute('font-size','12');
-    t1.textContent = date + ' — ' + actor;
-    g.appendChild(t1);
-
-    const t2 = document.createElementNS('http://www.w3.org/2000/svg','text');
-    t2.setAttribute('x', parseFloat(rect.getAttribute('x')) + 10);
-    t2.setAttribute('y', parseFloat(rect.getAttribute('y')) + 36);
-    t2.setAttribute('fill','#12313e');
-    t2.setAttribute('font-size','11');
-    // wrap info into tspan
-    const infoLines = wrapText(info, 44);
-    infoLines.forEach((line, idx) => {
-      const tspan = document.createElementNS('http://www.w3.org/2000/svg','tspan');
-      tspan.setAttribute('x', parseFloat(rect.getAttribute('x')) + 10);
-      tspan.setAttribute('dy', idx===0? '20' : '14');
-      tspan.textContent = line;
-      t2.appendChild(tspan);
-    });
-    g.appendChild(t2);
-
-    // hide after 6s
-    setTimeout(()=>{ g.innerHTML = '' }, 6000);
-  }
-
-  function wrapText(text, maxChars){
-    if(!text) return [''];
-    const words = text.split(' ');
-    const lines = [];
-    let line = '';
-    words.forEach(w=>{
-      if ((line + ' ' + w).trim().length > maxChars){
-        lines.push(line.trim());
-        line = w;
-      } else line += ' ' + w;
-    });
-    if (line.trim()) lines.push(line.trim());
-    return lines.slice(0,4); // limit
-  }
-
-  // draw svg when page loaded if user clicks graph
-  document.getElementById('viewGraph').addEventListener('click', drawSVG);
-
-  // initial state
-  showTimeline();
-
-  // If want: automatically hide image if it can't load (so no broken image shown)
-  docImage.addEventListener('error', ()=> { docImage.style.display='none'; });
-
-  // Helpful: if user loads this in GitHub and wants to show the image, 
-  // place the image file next to index.html and name it exactly: 8938df1a-f823-497a-867e-5fa6d187066d.png
-  // or edit the <img id="docImage" src="..."> attribute a la ruta real.
-
+}
 </script>
+
 </body>
 </html>
